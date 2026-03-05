@@ -4,12 +4,12 @@ import React from "react";
 import SectionContainer from "@/components/ui/SectionContainer";
 
 const products = [
-    { name: "Crimson Spiral Earrings", aspect: "aspect-[3/4]" },
-    { name: "Ivory Cascade Necklace", aspect: "aspect-square" },
-    { name: "Emerald Blossom Studs", aspect: "aspect-[3/4]" },
-    { name: "Ruby Teardrop Earrings", aspect: "aspect-square" },
-    { name: "Golden Petal Necklace", aspect: "aspect-[3/4]" },
-    { name: "Sapphire Swirl Set", aspect: "aspect-[4/5]" },
+    { name: "Crimson Spiral Earrings" },
+    { name: "Ivory Cascade Necklace" },
+    { name: "Emerald Blossom Studs" },
+    { name: "Ruby Teardrop Earrings" },
+    { name: "Golden Petal Necklace" },
+    { name: "Sapphire Swirl Set" },
 ];
 
 interface FeaturedBrandSectionProps {
@@ -45,18 +45,16 @@ export default function FeaturedBrandSection({
                 ))}
             </div>
 
-            {/* Masonry Grid */}
-            <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+            {/* Uniform Grid — all cards same size */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {products.map((product) => (
                     <div
                         key={product.name}
-                        className="break-inside-avoid group relative rounded-xl overflow-hidden border border-white/5 cursor-pointer card-hover"
+                        className="group relative rounded-xl overflow-hidden border border-white/5 cursor-pointer card-hover"
                         onClick={onRequestQuote}
                     >
-                        {/* Image placeholder */}
-                        <div
-                            className={`${product.aspect} bg-gradient-to-br from-emerald-dark to-charcoal-light flex items-center justify-center`}
-                        >
+                        {/* Image placeholder — uniform aspect ratio */}
+                        <div className="aspect-[4/5] bg-gradient-to-br from-charcoal-dark to-charcoal-light flex items-center justify-center">
                             <svg
                                 className="w-12 h-12 text-gold/20"
                                 fill="none"
@@ -81,7 +79,7 @@ export default function FeaturedBrandSection({
 
                         {/* Hover overlay */}
                         <div className="absolute inset-0 bg-gold/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <span className="px-5 py-2.5 bg-gold text-charcoal-dark font-semibold rounded-lg text-sm shadow-lg font-sans">
+                            <span className="px-5 py-2.5 bg-gold text-white font-semibold rounded-lg text-sm shadow-lg font-sans">
                                 Request Quote
                             </span>
                         </div>
