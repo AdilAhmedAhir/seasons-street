@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" fill="none">
+  <!-- Icon (white variant) -->
+  <rect x="40" y="10" width="50" height="50" fill="#EF4444"/>
+  <rect x="110" y="10" width="50" height="50" fill="#FFFFFF"/>
+  <rect x="40" y="70" width="50" height="50" fill="#FFFFFF"/>
+  <rect x="110" y="70" width="50" height="50" fill="#EF4444"/>
+  <!-- Brand Name (white) -->
+  <text x="100" y="158" text-anchor="middle" font-family="'Georgia', serif" font-size="22" font-weight="bold" fill="#FFFFFF" letter-spacing="3">SEASONS STREET</text>
+  <!-- Tagline -->
+  <text x="100" y="178" text-anchor="middle" font-family="'Arial', sans-serif" font-size="10" fill="rgba(255,255,255,0.7)" letter-spacing="5">THE SOLUTION</text>
+</svg>

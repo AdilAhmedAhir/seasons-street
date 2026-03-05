@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const navItems = [
@@ -18,8 +19,9 @@ export default function AdminSidebar() {
 
     return (
         <aside className="hidden lg:flex flex-col w-64 bg-charcoal border-r border-white/5 p-6">
-            <Link href="/" className="text-xl font-bold text-gold font-serif mb-10">
-                Seasons Street
+            <Link href="/" className="flex items-center gap-2 mb-10">
+                <Image src="/logo-icon-white.svg" alt="" width={32} height={32} className="h-8 w-8" />
+                <span className="text-lg font-bold text-gold font-serif">Seasons Street</span>
             </Link>
 
             <nav className="space-y-1 flex-1">
@@ -30,8 +32,8 @@ export default function AdminSidebar() {
                             key={item.href}
                             href={item.href}
                             className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${isActive
-                                    ? "bg-gold/10 text-gold"
-                                    : "text-text-muted hover:text-text-primary hover:bg-white/5"
+                                ? "bg-gold/10 text-gold"
+                                : "text-text-muted hover:text-text-primary hover:bg-white/5"
                                 }`}
                         >
                             <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">

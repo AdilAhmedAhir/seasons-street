@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import Button from "@/components/ui/Button";
 
 const navLinks = [
@@ -29,16 +30,21 @@ export default function Navbar({ onRequestQuote }: NavbarProps) {
     return (
         <nav
             className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${isScrolled
-                    ? "bg-charcoal-dark/95 backdrop-blur-md shadow-lg"
-                    : "bg-transparent"
+                ? "bg-charcoal-dark/95 backdrop-blur-md shadow-lg"
+                : "bg-transparent"
                 }`}
         >
             <div className="max-w-[80rem] mx-auto flex items-center justify-between px-6 py-4">
                 {/* Logo */}
-                <a href="#" className="flex items-center gap-2">
-                    <span className="text-2xl font-bold font-serif text-gold tracking-wide">
-                        Seasons Street
-                    </span>
+                <a href="#" className="flex items-center">
+                    <Image
+                        src="/logo-horizontal-white.svg"
+                        alt="Seasons Street"
+                        width={200}
+                        height={48}
+                        className="h-10 w-auto"
+                        priority
+                    />
                 </a>
 
                 {/* Desktop Links */}

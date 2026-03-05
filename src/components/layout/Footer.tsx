@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const footerLinks = [
     { label: "Home", href: "#" },
@@ -45,11 +46,15 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
                     {/* Brand */}
                     <div>
-                        <h3 className="text-xl font-bold text-gold font-serif mb-3">
-                            Seasons Street
-                        </h3>
+                        <Image
+                            src="/logo-horizontal-white.svg"
+                            alt="Seasons Street"
+                            width={180}
+                            height={44}
+                            className="h-9 w-auto mb-3"
+                        />
                         <p className="text-text-muted text-sm leading-relaxed">
-                            A Venture under TheSign.
+                            The Solution.
                             <br />
                             Crafting sustainability, exporting excellence from Bangladesh to
                             the world.
@@ -126,7 +131,7 @@ export default function Footer() {
                 {/* Bottom Bar */}
                 <div className="mt-12 pt-6 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
                     <p className="text-text-muted text-xs">
-                        © 2026 Seasons Street (A Venture under TheSign). All rights reserved.
+                        © 2026 Seasons Street — The Solution. All rights reserved.
                     </p>
                     <a
                         href="https://seasonsstreet.com"
