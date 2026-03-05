@@ -14,11 +14,11 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantStyles: Record<ButtonVariant, string> = {
     primary:
-        "bg-gold text-charcoal-dark font-semibold hover:bg-gold-light gold-glow",
+        "bg-gold text-white font-semibold hover:bg-gold-light gold-glow",
     secondary:
-        "bg-emerald text-text-primary font-semibold hover:bg-emerald-light border border-emerald-light",
+        "bg-surface text-text-primary font-semibold hover:bg-surface-elevated border border-white/10",
     outline:
-        "bg-transparent text-gold border-2 border-gold hover:bg-gold hover:text-charcoal-dark",
+        "bg-transparent text-gold border-2 border-gold hover:bg-gold hover:text-white",
     ghost:
         "bg-transparent text-text-secondary hover:text-gold hover:bg-white/5",
 };
