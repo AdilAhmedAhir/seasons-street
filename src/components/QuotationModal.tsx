@@ -6,7 +6,7 @@ import Button from "@/components/ui/Button";
 
 type OrderType = "standard" | "custom";
 
-interface FormData {
+interface QuoteFormData {
     companyName: string;
     email: string;
     phone: string;
@@ -52,7 +52,8 @@ export default function QuotationModal({
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [errors, setErrors] = useState<FormErrors>({});
-    const [formData, setFormData] = useState<FormData>({
+    const [submitError, setSubmitError] = useState<string | null>(null);
+    const [formData, setFormData] = useState<QuoteFormData>({
         companyName: "",
         email: "",
         phone: "",
@@ -77,6 +78,7 @@ export default function QuotationModal({
             file: null,
         });
         setErrors({});
+        setSubmitError(null);
         setIsSuccess(false);
     }, []);
 
@@ -131,29 +133,39 @@ export default function QuotationModal({
         if (!validate()) return;
 
         setIsSubmitting(true);
+        setSubmitError(null);
         try {
+            const body = new FormData();
+            body.append("orderType", orderType);
+            body.append("companyName", formData.companyName);
+            body.append("email", formData.email);
+            if (formData.phone) body.append("phone", formData.phone);
+            if (formData.product) body.append("product", formData.product);
+            if (formData.customDescription) body.append("customDescription", formData.customDescription);
+            body.append("quantity", String(formData.quantity));
+            if (formData.notes) body.append("notes", formData.notes);
+            if (formData.file) body.append("file", formData.file);
+
             const response = await fetch("/api/quote", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    ...formData,
-                    orderType,
-                    file: formData.file?.name || null,
-                }),
+                body,
             });
+
+            const result = await response.json();
 
             if (response.ok) {
                 setIsSuccess(true);
+            } else {
+                setSubmitError(result.error || "Failed to submit. Please try again.");
             }
         } catch {
-            // Mock — always succeed
-            setIsSuccess(true);
+            setSubmitError("Network error. Please check your connection and try again.");
         } finally {
             setIsSubmitting(false);
         }
     };
 
-    const updateField = (field: keyof FormData, value: string | number | File | null) => {
+    const updateField = (field: keyof QuoteFormData, value: string | number | File | null) => {
         setFormData((prev) => ({ ...prev, [field]: value }));
         if (errors[field as keyof FormErrors]) {
             setErrors((prev) => ({ ...prev, [field]: undefined }));
@@ -190,14 +202,20 @@ export default function QuotationModal({
                                     setErrors({});
                                 }}
                                 className={`flex-1 py-2.5 rounded-md text-sm font-semibold transition-all cursor-pointer ${orderType === type
-                                        ? "bg-gold text-charcoal-dark"
-                                        : "text-text-muted hover:text-text-primary"
+                                    ? "bg-gold text-charcoal-dark"
+                                    : "text-text-muted hover:text-text-primary"
                                     }`}
                             >
                                 {type === "standard" ? "Standard Order" : "Custom Order"}
                             </button>
                         ))}
                     </div>
+
+                    {submitError && (
+                        <div className="p-3 rounded-lg bg-red-400/10 border border-red-400/20">
+                            <p className="text-red-400 text-sm">{submitError}</p>
+                        </div>
+                    )}
 
                     <p className="text-text-muted text-xs">
                         {orderType === "standard"
@@ -305,10 +323,10 @@ export default function QuotationModal({
                             </label>
                             <label
                                 className={`flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer transition-colors hover:bg-gold/5 ${errors.file
-                                        ? "border-red-400"
-                                        : formData.file
-                                            ? "border-gold/50 bg-gold/5"
-                                            : "border-gold/20"
+                                    ? "border-red-400"
+                                    : formData.file
+                                        ? "border-gold/50 bg-gold/5"
+                                        : "border-gold/20"
                                     }`}
                             >
                                 {formData.file ? (

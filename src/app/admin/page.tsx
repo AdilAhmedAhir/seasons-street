@@ -1,6 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { db } from "@/db";
+import { quotations, type Quotation } from "@/db/schema";
+import { desc, sql } from "drizzle-orm";
 
 export const metadata: Metadata = {
     title: "Admin Dashboard | Seasons Street",
@@ -8,87 +11,8 @@ export const metadata: Metadata = {
     robots: { index: false, follow: false },
 };
 
-const mockQuotations = [
-    {
-        id: "QR-001",
-        date: "2026-02-28",
-        company: "Nordic Craft Co.",
-        orderType: "Standard" as const,
-        product: "Paper Quilling Earrings - Red & White",
-        quantity: 500,
-        status: "Pending" as const,
-    },
-    {
-        id: "QR-002",
-        date: "2026-02-27",
-        company: "Fair Trade EU",
-        orderType: "Custom" as const,
-        product: "Custom Ornaments Collection",
-        quantity: 1200,
-        status: "Reviewed" as const,
-    },
-    {
-        id: "QR-003",
-        date: "2026-02-25",
-        company: "Eco Living Australia",
-        orderType: "Standard" as const,
-        product: "Sustainable Disposable Plates",
-        quantity: 2000,
-        status: "Approved" as const,
-    },
-    {
-        id: "QR-004",
-        date: "2026-02-24",
-        company: "Berlin Design Haus",
-        orderType: "Custom" as const,
-        product: "Bespoke Jewelry Line",
-        quantity: 300,
-        status: "Pending" as const,
-    },
-    {
-        id: "QR-005",
-        date: "2026-02-22",
-        company: "Artisan Collective NYC",
-        orderType: "Standard" as const,
-        product: "Paper Quilling Necklace - Ivory",
-        quantity: 800,
-        status: "Approved" as const,
-    },
-    {
-        id: "QR-006",
-        date: "2026-02-20",
-        company: "Green Market Japan",
-        orderType: "Custom" as const,
-        product: "Custom Packaging Design",
-        quantity: 5000,
-        status: "Reviewed" as const,
-    },
-    {
-        id: "QR-007",
-        date: "2026-02-18",
-        company: "Scandinavian Imports AB",
-        orderType: "Standard" as const,
-        product: "Paper Quilling Set - Ruby",
-        quantity: 1500,
-        status: "Rejected" as const,
-    },
-    {
-        id: "QR-008",
-        date: "2026-02-15",
-        company: "Pacific Wholesale Ltd",
-        orderType: "Standard" as const,
-        product: "Handicraft — Custom Item",
-        quantity: 400,
-        status: "Pending" as const,
-    },
-];
-
-const stats = [
-    { label: "Total Requests", value: 47, color: "text-text-primary" },
-    { label: "Pending", value: 12, color: "text-status-pending" },
-    { label: "Reviewed", value: 28, color: "text-status-reviewed" },
-    { label: "Converted", value: 7, color: "text-accent-green" },
-];
+// Force dynamic rendering — always reads fresh data from DB
+export const dynamic = "force-dynamic";
 
 const statusColors: Record<string, string> = {
     Pending: "bg-status-pending/10 text-status-pending",
@@ -98,11 +22,51 @@ const statusColors: Record<string, string> = {
 };
 
 const orderTypeColors: Record<string, string> = {
-    Standard: "bg-accent-green/10 text-accent-green",
-    Custom: "bg-accent-amber/10 text-accent-amber",
+    standard: "bg-accent-green/10 text-accent-green",
+    custom: "bg-accent-amber/10 text-accent-amber",
 };
 
-export default function AdminPage() {
+export default async function AdminPage() {
+    // Fetch quotations from DB
+    let allQuotations: Quotation[] = [];
+    let stats = { total: 0, pending: 0, reviewed: 0, approved: 0 };
+
+    try {
+        if (db) {
+            allQuotations = await db
+                .select()
+                .from(quotations)
+                .orderBy(desc(quotations.createdAt));
+
+            // Calculate stats
+            const [statResult] = await db
+                .select({
+                    total: sql<number>`count(*)`,
+                    pending: sql<number>`count(*) filter (where ${quotations.status} = 'Pending')`,
+                    reviewed: sql<number>`count(*) filter (where ${quotations.status} = 'Reviewed')`,
+                    approved: sql<number>`count(*) filter (where ${quotations.status} = 'Approved')`,
+                })
+                .from(quotations);
+
+            stats = {
+                total: Number(statResult.total),
+                pending: Number(statResult.pending),
+                reviewed: Number(statResult.reviewed),
+                approved: Number(statResult.approved),
+            };
+        }
+    } catch (error) {
+        console.error("Failed to fetch quotations:", error);
+        // DB not set up yet — show empty state
+    }
+
+    const statCards = [
+        { label: "Total Requests", value: stats.total, color: "text-text-primary" },
+        { label: "Pending", value: stats.pending, color: "text-status-pending" },
+        { label: "Reviewed", value: stats.reviewed, color: "text-status-reviewed" },
+        { label: "Approved", value: stats.approved, color: "text-accent-green" },
+    ];
+
     return (
         <div className="min-h-screen bg-charcoal-dark flex">
             {/* Sidebar — Desktop */}
@@ -150,28 +114,6 @@ export default function AdminPage() {
                         <h1 className="text-xl font-bold font-serif">Quotation Requests</h1>
                     </div>
                     <div className="flex items-center gap-4">
-                        {/* Search */}
-                        <div className="hidden sm:block relative">
-                            <svg
-                                className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-text-muted"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                                />
-                            </svg>
-                            <input
-                                type="text"
-                                placeholder="Search quotations..."
-                                className="pl-10 pr-4 py-2 bg-charcoal-dark border border-white/10 rounded-lg text-sm text-text-primary placeholder-text-muted focus:outline-none focus:ring-1 focus:ring-gold/50 w-60"
-                            />
-                        </div>
-                        {/* Avatar */}
                         <div className="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center">
                             <span className="text-gold text-sm font-bold">A</span>
                         </div>
@@ -181,7 +123,7 @@ export default function AdminPage() {
                 <div className="flex-1 p-6 overflow-auto">
                     {/* Stats */}
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                        {stats.map((stat) => (
+                        {statCards.map((stat) => (
                             <div
                                 key={stat.label}
                                 className="bg-surface rounded-xl p-5 border border-white/5"
@@ -196,147 +138,174 @@ export default function AdminPage() {
                         ))}
                     </div>
 
-                    {/* Desktop Table */}
-                    <div className="hidden md:block bg-surface rounded-xl border border-white/5 overflow-hidden">
-                        <div className="overflow-x-auto">
-                            <table className="w-full text-sm">
-                                <thead>
-                                    <tr className="border-b border-white/5">
-                                        <th className="text-left px-6 py-4 text-text-muted font-medium uppercase tracking-wider text-xs">
-                                            Date
-                                        </th>
-                                        <th className="text-left px-6 py-4 text-text-muted font-medium uppercase tracking-wider text-xs">
-                                            Company
-                                        </th>
-                                        <th className="text-left px-6 py-4 text-text-muted font-medium uppercase tracking-wider text-xs">
-                                            Type
-                                        </th>
-                                        <th className="text-left px-6 py-4 text-text-muted font-medium uppercase tracking-wider text-xs">
-                                            Product
-                                        </th>
-                                        <th className="text-left px-6 py-4 text-text-muted font-medium uppercase tracking-wider text-xs">
-                                            Qty
-                                        </th>
-                                        <th className="text-left px-6 py-4 text-text-muted font-medium uppercase tracking-wider text-xs">
-                                            Status
-                                        </th>
-                                        <th className="text-left px-6 py-4 text-text-muted font-medium uppercase tracking-wider text-xs">
-                                            Actions
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {mockQuotations.map((q, i) => (
-                                        <tr
-                                            key={q.id}
-                                            className={`border-b border-white/5 hover:bg-white/[0.02] transition-colors ${i % 2 === 1 ? "bg-white/[0.01]" : ""
-                                                }`}
-                                        >
-                                            <td className="px-6 py-4 text-text-muted">{q.date}</td>
-                                            <td className="px-6 py-4 text-text-primary font-medium">
-                                                {q.company}
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                <span
-                                                    className={`px-2.5 py-1 rounded-full text-xs font-semibold ${orderTypeColors[q.orderType]
+                    {/* Empty state */}
+                    {allQuotations.length === 0 ? (
+                        <div className="bg-surface rounded-xl border border-white/5 p-12 text-center">
+                            <svg className="w-16 h-16 mx-auto text-text-muted/30 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <h3 className="text-lg font-bold text-text-secondary mb-2">No Quotation Requests Yet</h3>
+                            <p className="text-text-muted text-sm">
+                                When customers submit quotation requests, they&apos;ll appear here.
+                            </p>
+                        </div>
+                    ) : (
+                        <>
+                            {/* Desktop Table */}
+                            <div className="hidden md:block bg-surface rounded-xl border border-white/5 overflow-hidden">
+                                <div className="overflow-x-auto">
+                                    <table className="w-full text-sm">
+                                        <thead>
+                                            <tr className="border-b border-white/5">
+                                                <th className="text-left px-6 py-4 text-text-muted font-medium uppercase tracking-wider text-xs">
+                                                    Date
+                                                </th>
+                                                <th className="text-left px-6 py-4 text-text-muted font-medium uppercase tracking-wider text-xs">
+                                                    Company
+                                                </th>
+                                                <th className="text-left px-6 py-4 text-text-muted font-medium uppercase tracking-wider text-xs">
+                                                    Type
+                                                </th>
+                                                <th className="text-left px-6 py-4 text-text-muted font-medium uppercase tracking-wider text-xs">
+                                                    Product
+                                                </th>
+                                                <th className="text-left px-6 py-4 text-text-muted font-medium uppercase tracking-wider text-xs">
+                                                    Qty
+                                                </th>
+                                                <th className="text-left px-6 py-4 text-text-muted font-medium uppercase tracking-wider text-xs">
+                                                    Status
+                                                </th>
+                                                <th className="text-left px-6 py-4 text-text-muted font-medium uppercase tracking-wider text-xs">
+                                                    File
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {allQuotations.map((q, i) => (
+                                                <tr
+                                                    key={q.id}
+                                                    className={`border-b border-white/5 hover:bg-white/[0.02] transition-colors ${i % 2 === 1 ? "bg-white/[0.01]" : ""
                                                         }`}
                                                 >
-                                                    {q.orderType}
+                                                    <td className="px-6 py-4 text-text-muted">
+                                                        {q.createdAt
+                                                            ? new Date(q.createdAt).toLocaleDateString()
+                                                            : "—"}
+                                                    </td>
+                                                    <td className="px-6 py-4">
+                                                        <div>
+                                                            <p className="text-text-primary font-medium">{q.companyName}</p>
+                                                            <p className="text-text-muted text-xs">{q.email}</p>
+                                                        </div>
+                                                    </td>
+                                                    <td className="px-6 py-4">
+                                                        <span
+                                                            className={`px-2.5 py-1 rounded-full text-xs font-semibold capitalize ${orderTypeColors[q.orderType] || ""
+                                                                }`}
+                                                        >
+                                                            {q.orderType}
+                                                        </span>
+                                                    </td>
+                                                    <td className="px-6 py-4 text-text-secondary max-w-[200px] truncate">
+                                                        {q.product || q.customDescription || "—"}
+                                                    </td>
+                                                    <td className="px-6 py-4 text-text-primary font-mono">
+                                                        {q.quantity.toLocaleString()}
+                                                    </td>
+                                                    <td className="px-6 py-4">
+                                                        <span
+                                                            className={`px-2.5 py-1 rounded-full text-xs font-semibold ${statusColors[q.status] || ""
+                                                                }`}
+                                                        >
+                                                            {q.status}
+                                                        </span>
+                                                    </td>
+                                                    <td className="px-6 py-4">
+                                                        {q.fileUrl ? (
+                                                            <a
+                                                                href={q.fileUrl}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="text-gold text-xs hover:text-gold-light"
+                                                            >
+                                                                {q.fileName || "View File"}
+                                                            </a>
+                                                        ) : (
+                                                            <span className="text-text-muted text-xs">—</span>
+                                                        )}
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            {/* Mobile Cards */}
+                            <div className="md:hidden space-y-4">
+                                {allQuotations.map((q) => (
+                                    <div
+                                        key={q.id}
+                                        className="bg-surface rounded-xl border border-white/5 p-5"
+                                    >
+                                        <div className="flex items-start justify-between mb-3">
+                                            <div>
+                                                <p className="text-text-primary font-semibold">{q.companyName}</p>
+                                                <p className="text-text-muted text-xs mt-0.5">
+                                                    {q.createdAt
+                                                        ? new Date(q.createdAt).toLocaleDateString()
+                                                        : "—"}{" "}
+                                                    · {q.email}
+                                                </p>
+                                            </div>
+                                            <span
+                                                className={`px-2.5 py-1 rounded-full text-xs font-semibold capitalize ${orderTypeColors[q.orderType] || ""
+                                                    }`}
+                                            >
+                                                {q.orderType}
+                                            </span>
+                                        </div>
+                                        <p className="text-text-secondary text-sm mb-3 truncate">
+                                            {q.product || q.customDescription || "—"}
+                                        </p>
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-3">
+                                                <span className="text-text-secondary text-sm">
+                                                    Qty:{" "}
+                                                    <span className="font-mono text-text-primary">
+                                                        {q.quantity.toLocaleString()}
+                                                    </span>
                                                 </span>
-                                            </td>
-                                            <td className="px-6 py-4 text-text-secondary max-w-[200px] truncate">
-                                                {q.product}
-                                            </td>
-                                            <td className="px-6 py-4 text-text-primary font-mono">
-                                                {q.quantity.toLocaleString()}
-                                            </td>
-                                            <td className="px-6 py-4">
                                                 <span
-                                                    className={`px-2.5 py-1 rounded-full text-xs font-semibold ${statusColors[q.status]
+                                                    className={`px-2.5 py-1 rounded-full text-xs font-semibold ${statusColors[q.status] || ""
                                                         }`}
                                                 >
                                                     {q.status}
                                                 </span>
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                <div className="flex gap-2">
-                                                    <button className="p-1.5 text-gold hover:bg-gold/10 rounded-md transition-colors cursor-pointer" title="View">
-                                                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                        </svg>
-                                                    </button>
-                                                    <button className="p-1.5 text-gold hover:bg-gold/10 rounded-md transition-colors cursor-pointer" title="Edit">
-                                                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    {/* Mobile Cards */}
-                    <div className="md:hidden space-y-4">
-                        {mockQuotations.map((q) => (
-                            <div
-                                key={q.id}
-                                className="bg-surface rounded-xl border border-white/5 p-5"
-                            >
-                                <div className="flex items-start justify-between mb-3">
-                                    <div>
-                                        <p className="text-text-primary font-semibold">{q.company}</p>
-                                        <p className="text-text-muted text-xs mt-0.5">{q.date}</p>
+                                            </div>
+                                            {q.fileUrl && (
+                                                <a
+                                                    href={q.fileUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-gold text-sm font-medium hover:text-gold-light"
+                                                >
+                                                    File →
+                                                </a>
+                                            )}
+                                        </div>
                                     </div>
-                                    <span
-                                        className={`px-2.5 py-1 rounded-full text-xs font-semibold ${orderTypeColors[q.orderType]
-                                            }`}
-                                    >
-                                        {q.orderType}
-                                    </span>
-                                </div>
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <span className="text-text-secondary text-sm">
-                                            Qty: <span className="font-mono text-text-primary">{q.quantity.toLocaleString()}</span>
-                                        </span>
-                                        <span
-                                            className={`px-2.5 py-1 rounded-full text-xs font-semibold ${statusColors[q.status]
-                                                }`}
-                                        >
-                                            {q.status}
-                                        </span>
-                                    </div>
-                                    <a href="#" className="text-gold text-sm font-medium hover:text-gold-light">
-                                        View →
-                                    </a>
-                                </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
+                        </>
+                    )}
 
-                    {/* Pagination */}
-                    <div className="flex items-center justify-between mt-6 text-sm text-text-muted">
-                        <p>Showing 1-8 of 47 results</p>
-                        <div className="flex gap-2">
-                            <button className="px-3 py-1.5 rounded-md bg-surface border border-white/10 hover:bg-white/5 transition-colors cursor-pointer">
-                                ←
-                            </button>
-                            <button className="px-3 py-1.5 rounded-md bg-gold/10 text-gold border border-gold/20 cursor-pointer">
-                                1
-                            </button>
-                            <button className="px-3 py-1.5 rounded-md bg-surface border border-white/10 hover:bg-white/5 transition-colors cursor-pointer">
-                                2
-                            </button>
-                            <button className="px-3 py-1.5 rounded-md bg-surface border border-white/10 hover:bg-white/5 transition-colors cursor-pointer">
-                                →
-                            </button>
+                    {/* Pagination info */}
+                    {allQuotations.length > 0 && (
+                        <div className="flex items-center justify-between mt-6 text-sm text-text-muted">
+                            <p>Showing {allQuotations.length} of {stats.total} results</p>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
         </div>
