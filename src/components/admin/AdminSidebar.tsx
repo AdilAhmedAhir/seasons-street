@@ -18,9 +18,9 @@ export default function AdminSidebar() {
     const pathname = usePathname();
 
     return (
-        <aside className="hidden lg:flex flex-col w-64 bg-charcoal border-r border-white/5 p-6">
+        <aside className="hidden lg:flex flex-col w-64 bg-charcoal border-r border-gray-200 p-6">
             <Link href="/" className="flex items-center gap-2 mb-10">
-                <Image src="/logo-icon-white.svg" alt="" width={32} height={32} className="h-8 w-8" />
+                <Image src="/logo-icon.svg" alt="" width={32} height={32} className="h-8 w-8" />
                 <span className="text-lg font-bold text-gold font-serif">Seasons Street</span>
             </Link>
 
@@ -33,7 +33,7 @@ export default function AdminSidebar() {
                             href={item.href}
                             className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${isActive
                                 ? "bg-gold/10 text-gold"
-                                : "text-text-muted hover:text-text-primary hover:bg-white/5"
+                                : "text-text-muted hover:text-text-primary hover:bg-gray-50"
                                 }`}
                         >
                             <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">

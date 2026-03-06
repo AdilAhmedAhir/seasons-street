@@ -82,7 +82,7 @@ export default function AdminPortfolioPage() {
             {loading ? (
                 <div className="text-center py-12 text-text-muted">Loading...</div>
             ) : items.length === 0 ? (
-                <div className="bg-surface rounded-xl border border-white/5 p-12 text-center">
+                <div className="bg-surface rounded-xl border border-gray-200 p-12 text-center">
                     <h3 className="text-lg font-bold text-text-secondary mb-2">No Portfolio Items</h3>
                     <p className="text-text-muted text-sm mb-4">Showcase your work by adding portfolio items.</p>
                     <Button variant="primary" size="sm" onClick={openCreate}>+ Add Item</Button>
@@ -90,7 +90,7 @@ export default function AdminPortfolioPage() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {items.map((item) => (
-                        <div key={item.id} className="bg-surface rounded-xl border border-white/5 overflow-hidden">
+                        <div key={item.id} className="bg-surface rounded-xl border border-gray-200 overflow-hidden">
                             <div className="aspect-[4/3] bg-charcoal-dark flex items-center justify-center overflow-hidden">
                                 {item.imageUrl ? (
                                     // eslint-disable-next-line @next/next/no-img-element
@@ -125,24 +125,24 @@ export default function AdminPortfolioPage() {
                     <div>
                         <label className="block text-sm font-medium text-text-secondary mb-1">Title *</label>
                         <input type="text" required value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })}
-                            className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50" />
+                            className="w-full px-4 py-3 bg-charcoal border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50" />
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-text-secondary mb-1">Category</label>
                         <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}
-                            className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50 cursor-pointer">
+                            className="w-full px-4 py-3 bg-charcoal border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50 cursor-pointer">
                             {portfolioCategories.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
                         </select>
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-text-secondary mb-1">Client Name</label>
                         <input type="text" value={form.clientName} onChange={(e) => setForm({ ...form, clientName: e.target.value })}
-                            className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50" />
+                            className="w-full px-4 py-3 bg-charcoal border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50" />
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-text-secondary mb-1">Description</label>
                         <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows={3}
-                            className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50 resize-none" />
+                            className="w-full px-4 py-3 bg-charcoal border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50 resize-none" />
                     </div>
                     <label className="flex items-center gap-2 cursor-pointer">
                         <input type="checkbox" checked={form.isFeatured} onChange={(e) => setForm({ ...form, isFeatured: e.target.checked })}

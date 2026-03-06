@@ -60,7 +60,7 @@ export default async function AdminDashboard() {
             <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
                 {cards.map((card) => (
                     <Link key={card.label} href={card.href}
-                        className="bg-surface rounded-xl p-5 border border-white/5 hover:border-gold/20 transition-colors">
+                        className="bg-surface rounded-xl p-5 border border-gray-200 hover:border-gold/20 transition-colors">
                         <p className="text-text-muted text-xs font-medium uppercase tracking-wider mb-1">{card.label}</p>
                         <p className={`text-3xl font-bold ${card.color}`}>{card.value}</p>
                     </Link>
@@ -72,7 +72,7 @@ export default async function AdminDashboard() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                 {quickLinks.map((link) => (
                     <Link key={link.label} href={link.href}
-                        className="bg-surface rounded-xl p-5 border border-white/5 hover:border-gold/20 transition-colors flex items-center gap-3">
+                        className="bg-surface rounded-xl p-5 border border-gray-200 hover:border-gold/20 transition-colors flex items-center gap-3">
                         <div className="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center">
                             <svg className="w-5 h-5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={link.icon} />

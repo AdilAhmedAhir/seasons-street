@@ -53,18 +53,18 @@ export default function AdminQuotationsPage() {
             {loading ? (
                 <div className="text-center py-12 text-text-muted">Loading...</div>
             ) : quotations.length === 0 ? (
-                <div className="bg-surface rounded-xl border border-white/5 p-12 text-center">
+                <div className="bg-surface rounded-xl border border-gray-200 p-12 text-center">
                     <h3 className="text-lg font-bold text-text-secondary mb-2">No Quotation Requests</h3>
                     <p className="text-text-muted text-sm">Requests will appear here when customers submit them.</p>
                 </div>
             ) : (
                 <>
                     {/* Desktop Table */}
-                    <div className="hidden md:block bg-surface rounded-xl border border-white/5 overflow-hidden">
+                    <div className="hidden md:block bg-surface rounded-xl border border-gray-200 overflow-hidden">
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm">
                                 <thead>
-                                    <tr className="border-b border-white/5">
+                                    <tr className="border-b border-gray-200">
                                         <th className="text-left px-5 py-3 text-text-muted font-medium uppercase tracking-wider text-xs">Date</th>
                                         <th className="text-left px-5 py-3 text-text-muted font-medium uppercase tracking-wider text-xs">Company</th>
                                         <th className="text-left px-5 py-3 text-text-muted font-medium uppercase tracking-wider text-xs">Type</th>
@@ -76,7 +76,7 @@ export default function AdminQuotationsPage() {
                                 </thead>
                                 <tbody>
                                     {quotations.map((q, i) => (
-                                        <tr key={q.id} className={`border-b border-white/5 ${i % 2 === 1 ? "bg-white/[0.01]" : ""}`}>
+                                        <tr key={q.id} className={`border-b border-gray-200 ${i % 2 === 1 ? "bg-white/[0.01]" : ""}`}>
                                             <td className="px-5 py-3 text-text-muted">{q.createdAt ? new Date(q.createdAt).toLocaleDateString() : "—"}</td>
                                             <td className="px-5 py-3">
                                                 <p className="text-text-primary font-medium">{q.companyName}</p>
@@ -115,7 +115,7 @@ export default function AdminQuotationsPage() {
                     {/* Mobile Cards */}
                     <div className="md:hidden space-y-4">
                         {quotations.map((q) => (
-                            <div key={q.id} className="bg-surface rounded-xl border border-white/5 p-4">
+                            <div key={q.id} className="bg-surface rounded-xl border border-gray-200 p-4">
                                 <div className="flex items-start justify-between mb-2">
                                     <div>
                                         <p className="text-text-primary font-semibold">{q.companyName}</p>

@@ -71,7 +71,7 @@ export default function AdminTeamPage() {
             {loading ? (
                 <div className="text-center py-12 text-text-muted">Loading...</div>
             ) : members.length === 0 ? (
-                <div className="bg-surface rounded-xl border border-white/5 p-12 text-center">
+                <div className="bg-surface rounded-xl border border-gray-200 p-12 text-center">
                     <h3 className="text-lg font-bold text-text-secondary mb-2">No Team Members</h3>
                     <p className="text-text-muted text-sm mb-4">Add your team to show on the website.</p>
                     <Button variant="primary" size="sm" onClick={openCreate}>+ Add Member</Button>
@@ -79,8 +79,8 @@ export default function AdminTeamPage() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {members.map((m) => (
-                        <div key={m.id} className="bg-surface rounded-xl border border-white/5 p-6 text-center">
-                            <div className="w-20 h-20 rounded-full mx-auto mb-4 bg-gradient-to-br from-emerald to-emerald-dark border-2 border-gold/30 flex items-center justify-center overflow-hidden">
+                        <div key={m.id} className="bg-surface rounded-xl border border-gray-200 p-6 text-center">
+                            <div className="w-20 h-20 rounded-full mx-auto mb-4 bg-gradient-to-br from-gray-100 to-gray-200 border-2 border-gold/30 flex items-center justify-center overflow-hidden">
                                 {m.avatarUrl ? (
                                     // eslint-disable-next-line @next/next/no-img-element
                                     <img src={m.avatarUrl} alt={m.name} className="w-full h-full object-cover" />
@@ -107,22 +107,22 @@ export default function AdminTeamPage() {
                     <div>
                         <label className="block text-sm font-medium text-text-secondary mb-1">Name *</label>
                         <input type="text" required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
-                            className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50" />
+                            className="w-full px-4 py-3 bg-charcoal border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50" />
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-text-secondary mb-1">Role *</label>
                         <input type="text" required value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })} placeholder="e.g. CEO, Founder"
-                            className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50" />
+                            className="w-full px-4 py-3 bg-charcoal border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50" />
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-text-secondary mb-1">Bio</label>
                         <textarea value={form.bio} onChange={(e) => setForm({ ...form, bio: e.target.value })} rows={4}
-                            className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50 resize-none" />
+                            className="w-full px-4 py-3 bg-charcoal border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50 resize-none" />
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-text-secondary mb-1">Display Order</label>
                         <input type="number" value={form.sortOrder} onChange={(e) => setForm({ ...form, sortOrder: e.target.value })}
-                            className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50" />
+                            className="w-full px-4 py-3 bg-charcoal border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50" />
                     </div>
                     <ImageUpload currentUrl={editing?.avatarUrl} onUpload={setAvatarFile} label="Avatar Photo" />
                     <Button variant="primary" size="lg" className="w-full" type="submit">

@@ -27,10 +27,10 @@ export default function TeamSection() {
                 {team.map((member) => (
                     <div
                         key={member.name}
-                        className="rounded-xl bg-surface border border-white/5 p-8 text-center card-hover"
+                        className="rounded-xl bg-surface border border-gray-200 p-8 text-center card-hover"
                     >
                         {/* Avatar */}
-                        <div className="w-28 h-28 rounded-full bg-gradient-to-br from-emerald to-emerald-dark border-3 border-gold/30 mx-auto mb-6 flex items-center justify-center">
+                        <div className="w-28 h-28 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 border-3 border-gold/30 mx-auto mb-6 flex items-center justify-center">
                             <span className="text-3xl font-bold text-gold font-serif">
                                 {member.name
                                     .split(" ")

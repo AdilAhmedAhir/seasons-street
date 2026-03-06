@@ -31,7 +31,7 @@ export default function ImageUpload({
             </label>
             <div
                 onClick={() => inputRef.current?.click()}
-                className={`relative w-full h-40 rounded-lg border-2 border-dashed cursor-pointer transition-colors hover:bg-gold/5 flex items-center justify-center overflow-hidden ${preview ? "border-gold/50" : "border-white/10"
+                className={`relative w-full h-40 rounded-lg border-2 border-dashed cursor-pointer transition-colors hover:bg-gold/5 flex items-center justify-center overflow-hidden ${preview ? "border-gold/50" : "border-gray-200"
                     }`}
             >
                 {preview ? (

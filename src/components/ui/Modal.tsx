@@ -48,16 +48,16 @@ export default function Modal({ isOpen, onClose, children, title }: ModalProps) 
             {/* Modal Content */}
             <div
                 ref={modalRef}
-                className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-charcoal-light border border-white/10 shadow-2xl animate-fade-in-up"
+                className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white border border-gray-200 shadow-2xl animate-fade-in-up"
             >
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-white/10">
+                <div className="flex items-center justify-between p-6 border-b border-gray-200">
                     {title && (
                         <h2 className="text-2xl font-bold text-gold">{title}</h2>
                     )}
                     <button
                         onClick={onClose}
-                        className="ml-auto p-2 text-text-muted hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
+                        className="ml-auto p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
                         aria-label="Close modal"
                     >
                         <svg

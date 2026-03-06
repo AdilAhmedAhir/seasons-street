@@ -192,7 +192,7 @@ export default function QuotationModal({
             ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
                     {/* Order Type Toggle */}
-                    <div className="flex rounded-lg bg-charcoal p-1 gap-1">
+                    <div className="flex rounded-lg bg-gray-100 p-1 gap-1">
                         {(["standard", "custom"] as const).map((type) => (
                             <button
                                 key={type}
@@ -202,7 +202,7 @@ export default function QuotationModal({
                                     setErrors({});
                                 }}
                                 className={`flex-1 py-2.5 rounded-md text-sm font-semibold transition-all cursor-pointer ${orderType === type
-                                    ? "bg-gold text-charcoal-dark"
+                                    ? "bg-gold text-white shadow-sm"
                                     : "text-text-muted hover:text-text-primary"
                                     }`}
                             >
@@ -233,7 +233,7 @@ export default function QuotationModal({
                             value={formData.companyName}
                             onChange={(e) => updateField("companyName", e.target.value)}
                             placeholder="Your company name"
-                            className={`w-full px-4 py-3 bg-charcoal border rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-colors ${errors.companyName ? "border-red-400" : "border-white/10"
+                            className={`w-full px-4 py-3 bg-charcoal border rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-colors ${errors.companyName ? "border-red-400" : "border-gray-200"
                                 }`}
                         />
                         {errors.companyName && (
@@ -251,7 +251,7 @@ export default function QuotationModal({
                             value={formData.email}
                             onChange={(e) => updateField("email", e.target.value)}
                             placeholder="your@company.com"
-                            className={`w-full px-4 py-3 bg-charcoal border rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-colors ${errors.email ? "border-red-400" : "border-white/10"
+                            className={`w-full px-4 py-3 bg-charcoal border rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-colors ${errors.email ? "border-red-400" : "border-gray-200"
                                 }`}
                         />
                         {errors.email && (
@@ -269,7 +269,7 @@ export default function QuotationModal({
                             value={formData.phone}
                             onChange={(e) => updateField("phone", e.target.value)}
                             placeholder="+1 (555) 000-0000"
-                            className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-colors"
+                            className="w-full px-4 py-3 bg-charcoal border border-gray-200 rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-colors"
                         />
                     </div>
 
@@ -282,7 +282,7 @@ export default function QuotationModal({
                             <select
                                 value={formData.product}
                                 onChange={(e) => updateField("product", e.target.value)}
-                                className={`w-full px-4 py-3 bg-charcoal border rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-colors appearance-none cursor-pointer ${errors.product ? "border-red-400" : "border-white/10"
+                                className={`w-full px-4 py-3 bg-charcoal border rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-colors appearance-none cursor-pointer ${errors.product ? "border-red-400" : "border-gray-200"
                                     }`}
                             >
                                 <option value="">Select a product</option>
@@ -306,7 +306,7 @@ export default function QuotationModal({
                                 onChange={(e) => updateField("customDescription", e.target.value)}
                                 placeholder="Describe your custom design requirements..."
                                 rows={3}
-                                className={`w-full px-4 py-3 bg-charcoal border rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-colors resize-none ${errors.customDescription ? "border-red-400" : "border-white/10"
+                                className={`w-full px-4 py-3 bg-charcoal border rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-colors resize-none ${errors.customDescription ? "border-red-400" : "border-gray-200"
                                     }`}
                             />
                             {errors.customDescription && (
@@ -375,7 +375,7 @@ export default function QuotationModal({
                                 updateField("quantity", e.target.value === "" ? "" : Number(e.target.value))
                             }
                             placeholder={String(minQuantity)}
-                            className={`w-full px-4 py-3 bg-charcoal border rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-colors ${errors.quantity ? "border-red-400" : "border-white/10"
+                            className={`w-full px-4 py-3 bg-charcoal border rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-colors ${errors.quantity ? "border-red-400" : "border-gray-200"
                                 }`}
                         />
                         <p className="text-text-muted text-xs mt-1">
@@ -398,7 +398,7 @@ export default function QuotationModal({
                             onChange={(e) => updateField("notes", e.target.value)}
                             placeholder="Special packaging, color preferences, delivery timeline..."
                             rows={3}
-                            className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-colors resize-none"
+                            className="w-full px-4 py-3 bg-charcoal border border-gray-200 rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-colors resize-none"
                         />
                     </div>
 

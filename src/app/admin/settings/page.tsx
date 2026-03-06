@@ -91,7 +91,7 @@ export default function AdminSettingsPage() {
                         if (sectionSettings.length === 0) return null;
 
                         return (
-                            <div key={section} className="bg-surface rounded-xl border border-white/5 p-6">
+                            <div key={section} className="bg-surface rounded-xl border border-gray-200 p-6">
                                 <h2 className="text-lg font-bold mb-4">{sectionLabels[section]}</h2>
                                 <div className="space-y-4">
                                     {sectionSettings.map((d) => (
@@ -104,14 +104,14 @@ export default function AdminSettingsPage() {
                                                     value={getValue(d.key)}
                                                     onChange={(e) => setSettings({ ...settings, [d.key]: e.target.value })}
                                                     rows={4}
-                                                    className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50 resize-none text-sm"
+                                                    className="w-full px-4 py-3 bg-charcoal border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50 resize-none text-sm"
                                                 />
                                             ) : (
                                                 <input
                                                     type="text"
                                                     value={getValue(d.key)}
                                                     onChange={(e) => setSettings({ ...settings, [d.key]: e.target.value })}
-                                                    className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50 text-sm"
+                                                    className="w-full px-4 py-3 bg-charcoal border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50 text-sm"
                                                 />
                                             )}
                                         </div>

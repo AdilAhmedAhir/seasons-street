@@ -30,15 +30,15 @@ export default function Navbar({ onRequestQuote }: NavbarProps) {
     return (
         <nav
             className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${isScrolled
-                ? "bg-charcoal-dark/95 backdrop-blur-md shadow-lg"
+                ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100"
                 : "bg-transparent"
                 }`}
         >
             <div className="max-w-[80rem] mx-auto flex items-center justify-between px-6 py-4">
-                {/* Logo */}
+                {/* Logo — white version in hero, dark when scrolled */}
                 <a href="#" className="flex items-center">
                     <Image
-                        src="/logo-horizontal-white.svg"
+                        src={isScrolled ? "/logo-horizontal.svg" : "/logo-horizontal-white.svg"}
                         alt="Seasons Street"
                         width={200}
                         height={48}
@@ -53,7 +53,10 @@ export default function Navbar({ onRequestQuote }: NavbarProps) {
                         <a
                             key={link.label}
                             href={link.href}
-                            className="text-text-secondary hover:text-gold transition-colors duration-200 text-sm font-medium tracking-wide uppercase"
+                            className={`transition-colors duration-200 text-sm font-medium tracking-wide uppercase ${isScrolled
+                                ? "text-gray-600 hover:text-brand"
+                                : "text-white/80 hover:text-white"
+                                }`}
                         >
                             {link.label}
                         </a>
@@ -69,7 +72,7 @@ export default function Navbar({ onRequestQuote }: NavbarProps) {
 
                 {/* Mobile Hamburger */}
                 <button
-                    className="lg:hidden p-2 text-text-secondary hover:text-gold transition-colors cursor-pointer"
+                    className={`lg:hidden p-2 transition-colors cursor-pointer ${isScrolled ? "text-gray-600 hover:text-brand" : "text-white/80 hover:text-white"}`}
                     onClick={() => setIsMobileOpen(!isMobileOpen)}
                     aria-label="Toggle menu"
                 >
@@ -87,19 +90,19 @@ export default function Navbar({ onRequestQuote }: NavbarProps) {
 
             {/* Mobile Menu */}
             {isMobileOpen && (
-                <div className="lg:hidden bg-charcoal-dark/98 backdrop-blur-md border-t border-white/10 animate-fade-in">
+                <div className="lg:hidden bg-white border-t border-gray-100 animate-fade-in shadow-lg">
                     <div className="flex flex-col p-6 gap-4">
                         {navLinks.map((link) => (
                             <a
                                 key={link.label}
                                 href={link.href}
                                 onClick={() => setIsMobileOpen(false)}
-                                className="text-text-secondary hover:text-gold transition-colors text-lg font-medium py-2"
+                                className="text-gray-700 hover:text-brand transition-colors text-lg font-medium py-2"
                             >
                                 {link.label}
                             </a>
                         ))}
-                        <div className="pt-4 border-t border-white/10">
+                        <div className="pt-4 border-t border-gray-100">
                             <Button
                                 variant="primary"
                                 size="md"

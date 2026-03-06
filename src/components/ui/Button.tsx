@@ -16,11 +16,11 @@ const variantStyles: Record<ButtonVariant, string> = {
     primary:
         "bg-gold text-white font-semibold hover:bg-gold-light gold-glow",
     secondary:
-        "bg-surface text-text-primary font-semibold hover:bg-surface-elevated border border-white/10",
+        "bg-surface text-text-primary font-semibold hover:bg-surface-elevated border border-gray-200",
     outline:
         "bg-transparent text-gold border-2 border-gold hover:bg-gold hover:text-white",
     ghost:
-        "bg-transparent text-text-secondary hover:text-gold hover:bg-white/5",
+        "bg-transparent text-text-secondary hover:text-gold hover:bg-gray-50",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {

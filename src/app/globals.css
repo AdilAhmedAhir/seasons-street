@@ -2,7 +2,7 @@
 
 /* ================================================================
    SEASONS STREET — Design System
-   Brand: Red & Black with white for dark backgrounds
+   Brand: White/light base with red & black accents
    ================================================================ */
 
 @theme inline {
@@ -15,29 +15,29 @@
   --color-gold-light: #DC2626;
   --color-gold-dark: #991B1B;
 
-  --color-emerald: #1A1A1A;
-  --color-emerald-light: #2A2A2A;
-  --color-emerald-dark: #111111;
+  --color-emerald: #F9FAFB;
+  --color-emerald-light: #FFFFFF;
+  --color-emerald-dark: #F3F4F6;
 
-  --color-charcoal: #1A1A1A;
-  --color-charcoal-light: #2A2A2A;
-  --color-charcoal-dark: #111111;
+  --color-charcoal: #FFFFFF;
+  --color-charcoal-light: #F9FAFB;
+  --color-charcoal-dark: #F3F4F6;
 
-  --color-surface: #1E1E1E;
-  --color-surface-elevated: #262626;
+  --color-surface: #F9FAFB;
+  --color-surface-elevated: #FFFFFF;
 
-  --color-text-primary: #F5F0E6;
-  --color-text-secondary: #C4BCA8;
-  --color-text-muted: #8A8478;
+  --color-text-primary: #111827;
+  --color-text-secondary: #4B5563;
+  --color-text-muted: #9CA3AF;
 
-  --color-status-pending: #FACC15;
-  --color-status-reviewed: #60A5FA;
-  --color-status-approved: #4ADE80;
-  --color-status-rejected: #F87171;
+  --color-status-pending: #D97706;
+  --color-status-reviewed: #2563EB;
+  --color-status-approved: #16A34A;
+  --color-status-rejected: #DC2626;
 
-  --color-accent-green: #4CAF50;
-  --color-accent-blue: #42A5F5;
-  --color-accent-amber: #F59E0B;
+  --color-accent-green: #16A34A;
+  --color-accent-blue: #2563EB;
+  --color-accent-amber: #D97706;
 
   /* === Typography === */
   --font-serif: var(--font-playfair);
@@ -51,7 +51,7 @@
 
 /* === Base === */
 body {
-  background-color: var(--color-charcoal);
+  background-color: #FFFFFF;
   color: var(--color-text-primary);
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -74,16 +74,16 @@ h6 {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-charcoal-dark);
+  background: #F3F4F6;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-brand-dark);
+  background: #D1D5DB;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-brand);
+  background: #9CA3AF;
 }
 
 /* === Selection === */
@@ -121,11 +121,11 @@ h6 {
 }
 
 .gold-glow {
-  box-shadow: 0 0 20px rgba(185, 28, 28, 0.25);
+  box-shadow: 0 0 20px rgba(185, 28, 28, 0.15);
 }
 
 .gold-glow:hover {
-  box-shadow: 0 0 30px rgba(185, 28, 28, 0.4);
+  box-shadow: 0 0 30px rgba(185, 28, 28, 0.25);
 }
 
 .card-hover {
@@ -134,7 +134,7 @@ h6 {
 
 .card-hover:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
 /* === Animations === */

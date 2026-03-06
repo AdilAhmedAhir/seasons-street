@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import Button from "@/components/ui/Button";
 
 export default function HeroSection() {
@@ -7,8 +8,8 @@ export default function HeroSection() {
             id="hero"
             className="relative min-h-screen flex items-center justify-center overflow-hidden"
         >
-            {/* Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-charcoal-dark via-charcoal to-[#1a0505]" />
+            {/* Background — stays dark for contrast */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#111111] via-[#1A1A1A] to-[#1a0505]" />
 
             {/* Decorative pattern overlay */}
             <div
@@ -21,13 +22,25 @@ export default function HeroSection() {
             {/* Content */}
             <div className="relative z-10 section-container text-center">
                 <div className="max-w-4xl mx-auto">
+                    {/* Logo */}
+                    <div className="mb-8 animate-fade-in">
+                        <Image
+                            src="/logo-white.svg"
+                            alt="Seasons Street"
+                            width={160}
+                            height={180}
+                            className="h-28 w-auto mx-auto mb-6"
+                            priority
+                        />
+                    </div>
+
                     {/* Badges */}
                     <div className="flex flex-wrap justify-center gap-3 mb-8 animate-fade-in">
                         {["B2B Wholesale", "Custom Designs", "Global Shipping"].map(
                             (badge) => (
                                 <span
                                     key={badge}
-                                    className="px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-gold border border-gold/30 rounded-full bg-gold/5"
+                                    className="px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-red-400 border border-red-400/30 rounded-full bg-red-400/5"
                                 >
                                     {badge}
                                 </span>
@@ -36,13 +49,13 @@ export default function HeroSection() {
                     </div>
 
                     {/* Headline */}
-                    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 animate-fade-in-up">
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 animate-fade-in-up text-white">
                         Bulk Artisanal Crafts &{" "}
-                        <span className="text-gold">Sustainable Solutions</span>
+                        <span className="text-red-400">Sustainable Solutions</span>
                     </h1>
 
                     {/* Sub-headline */}
-                    <p className="text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto mb-10 font-sans animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+                    <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 font-sans animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
                         Premium wholesale exports from Bangladesh to the world.
                     </p>
 
@@ -69,8 +82,8 @@ export default function HeroSection() {
 
                 {/* Scroll indicator */}
                 <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-                    <div className="w-6 h-10 rounded-full border-2 border-gold/40 flex items-start justify-center p-1.5">
-                        <div className="w-1.5 h-3 bg-gold/60 rounded-full" />
+                    <div className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-1.5">
+                        <div className="w-1.5 h-3 bg-white/40 rounded-full" />
                     </div>
                 </div>
             </div>

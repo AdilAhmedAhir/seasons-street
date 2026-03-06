@@ -50,11 +50,11 @@ export default function FeaturedBrandSection({
                 {products.map((product) => (
                     <div
                         key={product.name}
-                        className="group relative rounded-xl overflow-hidden border border-white/5 cursor-pointer card-hover"
+                        className="group relative rounded-xl overflow-hidden border border-gray-200 cursor-pointer card-hover"
                         onClick={onRequestQuote}
                     >
                         {/* Image placeholder — uniform aspect ratio */}
-                        <div className="aspect-[4/5] bg-gradient-to-br from-charcoal-dark to-charcoal-light flex items-center justify-center">
+                        <div className="aspect-[4/5] bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
                             <svg
                                 className="w-12 h-12 text-gold/20"
                                 fill="none"

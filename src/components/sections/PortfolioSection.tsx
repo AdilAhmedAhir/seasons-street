@@ -25,7 +25,7 @@ export default function PortfolioSection() {
             </h2>
 
             {/* Success Story */}
-            <div className="rounded-xl bg-surface-elevated border border-white/5 p-8 mb-12">
+            <div className="rounded-xl bg-surface-elevated border border-gray-200 p-8 mb-12">
                 <div className="flex items-start gap-4">
                     <span className="text-3xl shrink-0">🌍</span>
                     <div>
@@ -50,10 +50,10 @@ export default function PortfolioSection() {
                 {galleryItems.map((item) => (
                     <div
                         key={item.title}
-                        className="rounded-xl overflow-hidden border border-white/5 card-hover"
+                        className="rounded-xl overflow-hidden border border-gray-200 card-hover"
                     >
                         {/* Image placeholder */}
-                        <div className="aspect-[4/3] bg-gradient-to-br from-emerald-dark to-charcoal-light flex items-center justify-center">
+                        <div className="aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
                             <svg
                                 className="w-12 h-12 text-gold/20"
                                 fill="none"

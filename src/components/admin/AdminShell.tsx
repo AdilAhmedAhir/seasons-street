@@ -15,7 +15,7 @@ export default function AdminLayout({
 
             {/* Mobile header */}
             <div className="flex-1 flex flex-col">
-                <header className="lg:hidden flex items-center justify-between px-4 py-3 border-b border-white/5 bg-charcoal">
+                <header className="lg:hidden flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-charcoal">
                     <Link href="/" className="text-gold font-bold font-serif">
                         SS
                     </Link>
@@ -26,7 +26,7 @@ export default function AdminLayout({
                 </header>
 
                 {/* Mobile bottom nav */}
-                <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-charcoal border-t border-white/5 flex justify-around py-2">
+                <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-charcoal border-t border-gray-200 flex justify-around py-2">
                     {[
                         { label: "Home", href: "/admin", icon: "M3 12l9-9 9 9M5 10v10h4v-6h6v6h4V10" },
                         { label: "Products", href: "/admin/products", icon: "M20 7l-8-4-8 4m16 0v10l-8 4m0-10L4 7m8 4v10" },

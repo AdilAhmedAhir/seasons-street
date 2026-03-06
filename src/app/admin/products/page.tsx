@@ -87,7 +87,7 @@ export default function AdminProductsPage() {
             {loading ? (
                 <div className="text-center py-12 text-text-muted">Loading...</div>
             ) : products.length === 0 ? (
-                <div className="bg-surface rounded-xl border border-white/5 p-12 text-center">
+                <div className="bg-surface rounded-xl border border-gray-200 p-12 text-center">
                     <svg className="w-16 h-16 mx-auto text-text-muted/30 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                     </svg>
@@ -98,7 +98,7 @@ export default function AdminProductsPage() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {products.map((p) => (
-                        <div key={p.id} className="bg-surface rounded-xl border border-white/5 overflow-hidden">
+                        <div key={p.id} className="bg-surface rounded-xl border border-gray-200 overflow-hidden">
                             <div className="aspect-[16/10] bg-charcoal-dark flex items-center justify-center overflow-hidden">
                                 {p.imageUrl ? (
                                     // eslint-disable-next-line @next/next/no-img-element
@@ -138,36 +138,36 @@ export default function AdminProductsPage() {
                     <div>
                         <label className="block text-sm font-medium text-text-secondary mb-1">Name *</label>
                         <input type="text" required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
-                            className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50" />
+                            className="w-full px-4 py-3 bg-charcoal border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50" />
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-text-secondary mb-1">Category *</label>
                         <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}
-                            className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50 cursor-pointer">
+                            className="w-full px-4 py-3 bg-charcoal border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50 cursor-pointer">
                             {categories.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
                         </select>
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-text-secondary mb-1">Description</label>
                         <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows={3}
-                            className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50 resize-none" />
+                            className="w-full px-4 py-3 bg-charcoal border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50 resize-none" />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-text-secondary mb-1">Price</label>
                             <input type="text" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} placeholder="Contact for pricing"
-                                className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50" />
+                                className="w-full px-4 py-3 bg-charcoal border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50" />
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-text-secondary mb-1">MOQ</label>
                             <input type="number" value={form.moq} onChange={(e) => setForm({ ...form, moq: e.target.value })}
-                                className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50" />
+                                className="w-full px-4 py-3 bg-charcoal border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50" />
                         </div>
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-text-secondary mb-1">Tags (comma-separated)</label>
                         <input type="text" value={form.tags} onChange={(e) => setForm({ ...form, tags: e.target.value })} placeholder="handcrafted, eco-friendly"
-                            className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50" />
+                            className="w-full px-4 py-3 bg-charcoal border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-gold/50" />
                     </div>
                     <ImageUpload currentUrl={editingProduct?.imageUrl} onUpload={setImageFile} label="Product Image" />
                     <Button variant="primary" size="lg" className="w-full" type="submit">
