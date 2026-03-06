@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import Button from "@/components/ui/Button";
 
 export default function HeroSection() {
@@ -22,18 +21,6 @@ export default function HeroSection() {
             {/* Content */}
             <div className="relative z-10 section-container text-center">
                 <div className="max-w-4xl mx-auto">
-                    {/* Logo */}
-                    <div className="mb-8 animate-fade-in">
-                        <Image
-                            src="/logo-white.svg"
-                            alt="Seasons Street"
-                            width={160}
-                            height={180}
-                            className="h-28 w-auto mx-auto mb-6"
-                            priority
-                        />
-                    </div>
-
                     {/* Badges */}
                     <div className="flex flex-wrap justify-center gap-3 mb-8 animate-fade-in">
                         {["B2B Wholesale", "Custom Designs", "Global Shipping"].map(
